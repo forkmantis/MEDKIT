@@ -42,6 +42,10 @@ func init() {
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+
+    rootCmd.PersistentFlags().String("dotfilesDirectory", "", "Path the your dotfiles directory (default is $HOME/dotfiles)")
+    viper.BindPFlag("dotfilesDirectory", rootCmd.PersistentFlags().Lookup("dotfilesDirectory"))
+    viper.SetDefault("dotfilesDirectory", "~/dotfiles")
 }
 
 // initConfig reads in config file and ENV variables if set.
