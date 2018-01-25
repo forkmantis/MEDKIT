@@ -43,13 +43,15 @@ func init() {
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 
-    rootCmd.PersistentFlags().String("dotfilesDirectory", "", "Path the your dotfiles directory (default is $HOME/dotfiles)")
-    viper.BindPFlag("dotfilesDirectory", rootCmd.PersistentFlags().Lookup("dotfilesDirectory"))
+    fmt.Println("rootCmd dotfilesDirectory = " + viper.GetString("dotfilesDirectory"))
     viper.SetDefault("dotfilesDirectory", "~/dotfiles")
+    rootCmd.PersistentFlags().String("dotfilesDirectory", viper.GetString("dotfilesDirectory"), "Path the your dotfiles directory (default is $HOME/dotfiles)")
+    viper.BindPFlag("dotfilesDirectory", rootCmd.PersistentFlags().Lookup("dotfilesDirectory"))
 }
 
 // initConfig reads in config file and ENV variables if set.
 func initConfig() {
+    fmt.Println("initiConfig STARTED")
 	if cfgFile != "" {
 		// Use config file from the flag.
 		viper.SetConfigFile(cfgFile)
@@ -72,4 +74,5 @@ func initConfig() {
 	if err := viper.ReadInConfig(); err == nil {
 		fmt.Println("Using config file:", viper.ConfigFileUsed())
 	}
+    fmt.Println("initiConfig FINISHED")
 }
