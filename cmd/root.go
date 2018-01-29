@@ -19,7 +19,9 @@ var rootCmd = &cobra.Command{
 	Version: "0.0.1-alpha",
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
-	//	Run: func(cmd *cobra.Command, args []string) { },
+	Run: func(cmd *cobra.Command, args []string) {
+        fmt.Println("rootCmd dotfilesDirectory from Run = " + viper.GetString("dotfilesDirectory"))
+    },
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -43,7 +45,7 @@ func init() {
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 
-    fmt.Println("rootCmd dotfilesDirectory = " + viper.GetString("dotfilesDirectory"))
+    fmt.Println("rootCmd dotfilesDirectory from init = " + viper.GetString("dotfilesDirectory"))
     viper.SetDefault("dotfilesDirectory", "~/dotfiles")
     rootCmd.PersistentFlags().String("dotfilesDirectory", viper.GetString("dotfilesDirectory"), "Path the your dotfiles directory (default is $HOME/dotfiles)")
     viper.BindPFlag("dotfilesDirectory", rootCmd.PersistentFlags().Lookup("dotfilesDirectory"))
